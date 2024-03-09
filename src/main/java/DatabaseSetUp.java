@@ -2,6 +2,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main author: Joseph Byrne
+ * Other contributors: Ema Eiliakas
+ *
+ */
+
 public class DatabaseSetUp {
 
     private static final String URL = "jdbc:mysql://localhost/";
@@ -25,6 +31,10 @@ public class DatabaseSetUp {
         return instance;
     }
 
+    /**
+     * Main author: Joseph Byrne
+     *
+     */
     public Connection getConnection() {
         try {
             Connection conn = DriverManager.getConnection
@@ -36,6 +46,11 @@ public class DatabaseSetUp {
         }
     }
 
+    /**
+     * Main author: Joseph Byrne
+     * Other contributors: Julius Odeyami
+     *
+     */
     public List<Movie> getAllMovies() throws SQLException
     {
         List<Movie> movies = new ArrayList<>();
@@ -60,6 +75,11 @@ public class DatabaseSetUp {
         return movies;
     }
 
+    /**
+     * Main author: Joseph Byrne
+     * Other contributors: Julius Odeyami
+     *
+     */
     public Movie findMovieById(int movieId) throws SQLException {
         Connection conn = getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Movies WHERE movie_id = ?");
@@ -82,10 +102,11 @@ public class DatabaseSetUp {
         return movie;
     }
 
-
-
-
-
+    /**
+     * Main author: Ema Eiliakas
+     * Other contributors: Brandon Thompson
+     *
+     */
     public void insertMovie(Movie movie) throws SQLException {
         Connection conn = getConnection();
         String query = "Insert Into Movies VALUES (null, ?, ?, ?, ?, ?,?)";
@@ -102,4 +123,22 @@ public class DatabaseSetUp {
             conn.close();
         }
     }
+
+    /**
+     * Main author: Ema Eiliakas
+     * Other contributors: Brandon Thompson
+     *
+     */
+    public void deleteMovie(int movieId) throws SQLException {
+        Connection conn = getConnection();
+        String query = "Delete From Movies Where movie_id = ?";
+
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setInt(1, movieId);
+            preparedStatement.executeUpdate(); // will delete the specified movie_id row
+        } finally {
+            conn.close();
+        }
+    }
+
 }

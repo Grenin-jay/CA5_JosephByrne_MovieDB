@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 /**
  * Main author: Joseph Byrne
- * Other contributors: Ema Eiliakas, Julius Odeyami, Brandon...
+ * Other contributors: Ema Eiliakas
  *
+ * For Main Menu and Initial Database Setup on PHPMyAdmin
  */
 
 
@@ -19,11 +20,13 @@ public class MainApp {
 
         int choice;
         do {
-            System.out.println("\n1. View all movies.");
+            System.out.println("\n------------------------");
+            System.out.println("1. View all movies.");
             System.out.println("2. Insert New Movie.");
             System.out.println("3. Find Movie by ID");
-
-            System.out.println("4. Exit.");
+            System.out.println("4. Delete Movie by movie ID");
+            System.out.println("5. Exit.");
+            System.out.println("------------------------");
 
             choice = keyboard.nextInt();
             keyboard.nextLine();
@@ -60,12 +63,19 @@ public class MainApp {
                     }
                     break;
                 case 4:
+                    System.out.println("Enter the movie ID to delete it: ");
+                    int movieIdToDelete = keyboard.nextInt();
+                    keyboard.nextLine();
+                    databaseSetUp.deleteMovie(movieIdToDelete);
+                    System.out.println("Movie Deleted successfully");
+                    break;
+                case 5:
                     System.out.println("Exiting Code now.");
                     break;
                 default:
                     System.out.println("Invalid Choice.");
             }
-        } while (choice != 4); //Exits Loop
+        } while (choice != 5); //Exits Loop
     }
 
     private static Movie insertNewMovie(Scanner keyboard) {
