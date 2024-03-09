@@ -3,7 +3,7 @@ public class CommitIgnore {
     //Had a problem with the first repository so this is the code from my first 2 commits so that you can see i commited stuff before hand
     /*
 
-    import java.lang.runtime.SwitchBootstraps;
+import java.lang.runtime.SwitchBootstraps;
 import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
