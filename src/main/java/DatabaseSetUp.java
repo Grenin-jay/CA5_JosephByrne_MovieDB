@@ -141,4 +141,48 @@ public class DatabaseSetUp {
         }
     }
 
+    /**
+     * Main author: Ema Eiliakas
+     */
+    public void updateRating(int movieId, double newRating) throws SQLException {
+        Connection conn = getConnection();
+        String query = "Update Movies Set rating = ? Where movie_id = ?";
+
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setDouble(1, newRating);
+            preparedStatement.setInt(2, movieId);
+            preparedStatement.executeUpdate(); //will update the specified movie_id Row
+        } finally {
+            conn.close();
+        }
+    }
+
+    /**
+     * Main author: Joseph
+     */
+    public List<Movie> filterMoviesByRating(double minRating) throws SQLException {
+        List<Movie> filteredMovies = new ArrayList<>();
+        Connection conn = getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Movies WHERE rating >= ?");
+        stmt.setDouble(1, minRating);
+        ResultSet results = stmt.executeQuery();
+
+        while (results.next()) {
+            Movie movie = null;
+            movie = new Movie();
+            movie.setMovie_id(results.getInt("movie_id"));
+            movie.setTitle(results.getString("title"));
+            movie.setRelease_year(results.getInt("release_year"));
+            movie.setGenre(results.getString("genre"));
+            movie.setDirector(results.getString("director"));
+            movie.setRuntime_minutes(results.getInt("runtime_minutes"));
+            movie.setRating(results.getDouble("rating"));
+            filteredMovies.add(movie);
+        }
+
+        conn.close();
+        return filteredMovies;
+    }
+
 }
+

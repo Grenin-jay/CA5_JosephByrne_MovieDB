@@ -70,8 +70,16 @@ public class MainApp {
                     System.out.println("Movie Deleted successfully");
                     break;
                 case 5:
-                    System.out.println("Exiting Code now.");
+                    System.out.println("You are updating a movie rating");
+                    System.out.println("Enter the movie ID to update its rating: ");
+                    int movieUpdating = keyboard.nextInt();
+                    System.out.println("Enter the new rating for this movie: ");
+                    double newRating = keyboard.nextDouble();
+                    databaseSetUp.updateRating(movieUpdating, newRating);
+                    System.out.println("Movie rating updated successfully");
                     break;
+                case 6:
+                    System.out.println("Exiting Code Now.");
                 default:
                     System.out.println("Invalid Choice.");
             }
