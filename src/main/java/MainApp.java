@@ -101,18 +101,36 @@ public class MainApp {
                 case 7:
                     System.out.println("Which movies would you like to convert to Json format?");
                     System.out.println("1.All Movies");
-                    System.out.println("2.By Key");
+                    System.out.println("2.By ID");
                     String json;
                     int op = keyboard.nextInt();
+
                     if (op == 1)
                     {
                         List<Movie> allMovies = databaseSetUp.getAllMovies();
                         json = JsonConverter.moviesListToJson(allMovies);
                         System.out.println("JSON Format: " + json);
                     }
+
+
                     else if (op == 2)
                     {
+                        System.out.println("Please Enter the Movie ID");
+                        int movieIdJson = keyboard.nextInt();
+                        Movie foundMovieJson = databaseSetUp.findMovieById(movieIdJson);
+                        if(foundMovieJson != null)
+                        {
 
+                            String movieJson = JsonConverter.gsonParser.toJson(foundMovieJson);
+
+                            json = JsonConverter.singleMovieToJson(movieJson);
+                            System.out.println("JSON representation of the found movie:");
+                            System.out.println(json);
+                        }
+
+                        else {
+                            System.out.println("No Movie found with this ID!");
+                        }
                     }
                     break;
                 case 8:
