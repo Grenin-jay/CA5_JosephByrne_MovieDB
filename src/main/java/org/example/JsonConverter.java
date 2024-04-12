@@ -1,3 +1,4 @@
+package org.example;
 /**
  * Main author: Julius
  *
@@ -20,8 +21,5 @@ public class JsonConverter
         Movie movie = gsonParser.fromJson(json, Movie.class);
 
         return gsonParser.toJson(movie);
-
-
-
     }
 }

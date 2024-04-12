@@ -1,3 +1,5 @@
+package org.example;
+
 public class CommitIgnore {
 
     //Had a problem with the first repository so this is the code from my first 2 commits so that you can see i commited stuff before hand
@@ -9,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-    public class MainApp {
+    public class org.example.MainApp {
         public static void main(String[] args) throws SQLException {
 
             Scanner keyboard = new Scanner(System.in);
@@ -40,7 +42,7 @@ import java.util.Scanner;
 
         private static void ShowMovies(DatabaseSetUp databaseSetUp) throws SQLException {
             System.out.println("All Movies:");
-            List<Movie> allMovies = databaseSetUp.getAllMovies();
+            List<org.example.Movie> allMovies = databaseSetUp.getAllMovies();
             System.out.println(allMovies);
         }
     }
@@ -80,16 +82,16 @@ public class DatabaseSetUp {
         }
     }
 
-    public List<Movie> getAllMovies() throws SQLException
+    public List<org.example.Movie> getAllMovies() throws SQLException
     {
-        List<Movie> movies = new ArrayList<>();
+        List<org.example.Movie> movies = new ArrayList<>();
         Connection conn = getConnection();
         Statement stmt = conn.createStatement();
         ResultSet results = stmt.executeQuery("Select * from Movies");
 
         while (results.next())
         {
-            Movie movie = new Movie();
+            org.example.Movie movie = new org.example.Movie();
             movie.setMovie_id(results.getInt("movie_id"));
             movie.setTitle(results.getString("title"));
             movies.add(movie);
@@ -106,7 +108,7 @@ public class DatabaseSetUp {
 
 
 
-    public class Movie {
+    public class org.example.Movie {
 
     private int movie_id;
     private String title;

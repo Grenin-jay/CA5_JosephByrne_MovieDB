@@ -1,20 +1,15 @@
-import java.sql.*;
+package org.example;
+
+import org.example.dao.DAO;
+
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Main author: Joseph Byrne
- * Other contributors: Ema Eiliakas
- *
- * For Main Menu and Initial Database Setup on PHPMyAdmin
- */
-
-
 public class MainApp {
-    public static void main(String[] args) throws SQLException {
 
+    public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
-        DatabaseSetUp databaseSetUp = DatabaseSetUp.getInstance();
+        DAO dao = DAO.getInstance();
 
         System.out.println("Hello there and welcome to our movie database");
 
@@ -35,23 +30,29 @@ public class MainApp {
             keyboard.nextLine();
 
             switch (choice) {
+
                 case 1:
                     System.out.println("Showing all movies.");
-                    ShowMovies(databaseSetUp);
+                    ShowMovies(dao);
+
                     break;
+
                 case 2:
                     System.out.println("You are inserting a new movie.");
                     Movie newMovie = insertNewMovie(keyboard);
-                    //DatabaseSetUp.getInstance().insertMovie(newMovie);
-                    databaseSetUp.insertMovie(newMovie);
+                    dao.insertMovie(newMovie);
                     System.out.println("New Movie Inserted");
+
                     break;
+
                 case 3:
                     System.out.println("Finding a movie by ID");
                     System.out.println("Please Enter the Movie ID");
                     int movieId = keyboard.nextInt();
-                    Movie foundMovie = databaseSetUp.findMovieById(movieId);
+                    Movie foundMovie = dao.findMovieById(movieId);
+
                     if(foundMovie != null){
+
                         System.out.println("Movie Found!");
 
                         System.out.printf("%-5s %-20s %-12s %-22s %-24s %-12s %-10s\n",
@@ -65,29 +66,37 @@ public class MainApp {
                     {
                         System.out.println("No Movie found with this ID!");
                     }
+
                     break;
+
                 case 4:
                     System.out.println("Enter the movie ID to delete it: ");
                     int movieIdToDelete = keyboard.nextInt();
                     keyboard.nextLine();
-                    databaseSetUp.deleteMovie(movieIdToDelete);
+                    dao.deleteMovie(movieIdToDelete);
                     System.out.println("Movie Deleted successfully");
+
                     break;
+
                 case 5:
                     System.out.println("You are updating a movie rating");
                     System.out.println("Enter the movie ID to update its rating: ");
                     int movieUpdating = keyboard.nextInt();
                     System.out.println("Enter the new rating for this movie: ");
                     double newRating = keyboard.nextDouble();
-                    databaseSetUp.updateRating(movieUpdating, newRating);
+                    dao.updateRating(movieUpdating, newRating);
                     System.out.println("Movie rating updated successfully");
+
                     break;
+
                 case 6:
                     System.out.println("Filtering Movies By Rating");
                     System.out.println("Enter the minumum rating you want");
+
                     double minRating = keyboard.nextDouble();
                     keyboard.nextLine();
-                    List<Movie> filteredMoviesbyRating = databaseSetUp.filterMoviesByRating(minRating);
+
+                    List<Movie> filteredMoviesbyRating = dao.filterMoviesByRating(minRating);
                     if (!filteredMoviesbyRating.isEmpty()){
                         System.out.println("Filtered Movies");
                         for(Movie movie : filteredMoviesbyRating) {
@@ -97,17 +106,20 @@ public class MainApp {
                     else{
                         System.out.println("No Movies found above min rating");
                     }
+
                     break;
+
                 case 7:
                     System.out.println("Which movies would you like to convert to Json format?");
                     System.out.println("1.All Movies");
                     System.out.println("2.By ID");
+
                     String json;
                     int op = keyboard.nextInt();
 
                     if (op == 1)
                     {
-                        List<Movie> allMovies = databaseSetUp.getAllMovies();
+                        List<Movie> allMovies = dao.getAllMovies();
                         json = JsonConverter.moviesListToJson(allMovies);
                         System.out.println("JSON Format: " + json);
                     }
@@ -117,7 +129,7 @@ public class MainApp {
                     {
                         System.out.println("Please Enter the Movie ID");
                         int movieIdJson = keyboard.nextInt();
-                        Movie foundMovieJson = databaseSetUp.findMovieById(movieIdJson);
+                        Movie foundMovieJson = dao.findMovieById(movieIdJson);
                         if(foundMovieJson != null)
                         {
 
@@ -132,14 +144,17 @@ public class MainApp {
                             System.out.println("No Movie found with this ID!");
                         }
                     }
+
                     break;
+
                 case 8:
                     System.out.println("Exiting Code Now.");
+
                     break;
                 default:
                     System.out.println("Invalid Choice.");
             }
-        } while (choice != 8); //Exits Loop
+        } while (choice != 8); // Exits Loop
     }
 
     private static Movie insertNewMovie(Scanner keyboard) {
@@ -160,9 +175,9 @@ public class MainApp {
         return newMovie;
     }
 
-    private static void ShowMovies(DatabaseSetUp databaseSetUp) throws SQLException {
+    private static void ShowMovies(DAO dao){
         System.out.println("All Movies:");
-        List<Movie> allMovies = databaseSetUp.getAllMovies();
+        List<Movie> allMovies = dao.getAllMovies();
         //System.out.println(allMovies);
         System.out.printf("%-5s %-20s %-12s %-22s %-24s %-12s %-10s\n",
                 "ID", "Title", "Release", "Genre", "Director", "Runtime", "Rating");
