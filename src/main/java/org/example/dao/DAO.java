@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.Movie;
+import org.example.dto.Movie;
 
 import java.sql.*;
 import java.util.ArrayList;

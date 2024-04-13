@@ -42,7 +42,7 @@ import java.util.Scanner;
 
         private static void ShowMovies(DatabaseSetUp databaseSetUp) throws SQLException {
             System.out.println("All Movies:");
-            List<org.example.Movie> allMovies = databaseSetUp.getAllMovies();
+            List<org.example.dto.Movie> allMovies = databaseSetUp.getAllMovies();
             System.out.println(allMovies);
         }
     }
@@ -82,16 +82,16 @@ public class DatabaseSetUp {
         }
     }
 
-    public List<org.example.Movie> getAllMovies() throws SQLException
+    public List<org.example.dto.Movie> getAllMovies() throws SQLException
     {
-        List<org.example.Movie> movies = new ArrayList<>();
+        List<org.example.dto.Movie> movies = new ArrayList<>();
         Connection conn = getConnection();
         Statement stmt = conn.createStatement();
         ResultSet results = stmt.executeQuery("Select * from Movies");
 
         while (results.next())
         {
-            org.example.Movie movie = new org.example.Movie();
+            org.example.dto.Movie movie = new org.example.dto.Movie();
             movie.setMovie_id(results.getInt("movie_id"));
             movie.setTitle(results.getString("title"));
             movies.add(movie);
@@ -108,7 +108,7 @@ public class DatabaseSetUp {
 
 
 
-    public class org.example.Movie {
+    public class org.example.dto.Movie {
 
     private int movie_id;
     private String title;

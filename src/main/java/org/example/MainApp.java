@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.dao.DAO;
+import org.example.dto.Movie;
 
 import java.util.List;
 import java.util.Scanner;

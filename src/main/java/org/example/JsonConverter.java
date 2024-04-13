@@ -5,6 +5,7 @@ package org.example;
  */
 
 import com.google.gson.Gson;
+import org.example.dto.Movie;
 
 import java.util.List;
 
