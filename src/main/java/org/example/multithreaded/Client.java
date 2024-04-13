@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) {
     Client client = new Client();
-    //client.start();
+    client.start();
     }
 
     public void start(){
@@ -29,6 +29,22 @@ public class Client {
 
                 //types of commandds go here, Process the answers returned by the server
                 //lots of if, elif and else statements.
+                if(userCommand.startsWith("Command1"))
+                {
+                    //Command1 code goes here, fill out after discussing with group what we want
+                }
+                else if(userCommand.startsWith("Command2"))
+                {
+                    //Command2 code goes here, fill out after discussing with group what we want
+                }
+                else if(userCommand.startsWith("quit")){
+                    String response = in.readLine(); //Waits for response
+                    System.out.println("Client Message: Response from server: " + response);
+                    break;
+                }
+                else{
+                    System.out.println("Command not known, please try again");
+                }
 
                 //end of while statement clears and prompts the user for a new command
                 consoleInput = new Scanner(System.in);
