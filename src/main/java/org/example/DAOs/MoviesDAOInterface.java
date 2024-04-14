@@ -1,6 +1,6 @@
-package org.example.dao;
+package org.example.DAOs;
 
-import org.example.dto.Movie;
+import org.example.DTOs.Movie;
 
 import java.util.List;
 

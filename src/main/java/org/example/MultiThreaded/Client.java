@@ -1,4 +1,4 @@
-package org.example.multithreaded;
+package org.example.MultiThreaded;
 
 import java.io.*;
 import java.net.Socket;
