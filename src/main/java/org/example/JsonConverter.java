@@ -4,8 +4,8 @@ package org.example;
  *
  */
 
-import com.google.gson.Gson;
 import org.example.DTOs.Movie;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -23,4 +23,14 @@ public class JsonConverter
 
         return gsonParser.toJson(movie);
     }
+
+    public static String movietoJson(Movie movie)
+    {
+        return new Gson().toJson(movie);
+    }
+
+    public static Movie jsonToMovie(String json, Class<Movie> movieClass) {
+        return gsonParser.fromJson(json, Movie.class);
+    }
+
 }

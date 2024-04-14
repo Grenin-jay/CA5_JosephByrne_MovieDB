@@ -65,4 +65,17 @@ public class Movie {
     public void setRating(double rating) {
         this.rating = rating;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movie_id=" + movie_id +
+                ", title='" + title + '\'' +
+                ", release_year=" + release_year +
+                ", genre='" + genre + '\'' +
+                ", director='" + director + '\'' +
+                ", runtime_minutes=" + runtime_minutes +
+                ", rating=" + rating +
+                '}';
+    }
 }

@@ -6,9 +6,16 @@ import org.example.DTOs.Movie;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main author: Joseph Byrne
+ * Other contributors: Ema Eiliakas
+ *
+ */
+
 public class MainApp {
 
     public static void main(String[] args) {
+
         Scanner keyboard = new Scanner(System.in);
         DAO dao = DAO.getInstance();
 
@@ -98,8 +105,10 @@ public class MainApp {
                     keyboard.nextLine();
 
                     List<Movie> filteredMoviesbyRating = dao.filterMoviesByRating(minRating);
+
                     if (!filteredMoviesbyRating.isEmpty()){
                         System.out.println("Filtered Movies");
+
                         for(Movie movie : filteredMoviesbyRating) {
                             System.out.printf("Title: %s, Rating: %.2f\n",movie.getTitle(), movie.getRating());
                         }
@@ -118,21 +127,20 @@ public class MainApp {
                     String json;
                     int op = keyboard.nextInt();
 
-                    if (op == 1)
-                    {
+                    if (op == 1) {
+
                         List<Movie> allMovies = dao.getAllMovies();
                         json = JsonConverter.moviesListToJson(allMovies);
                         System.out.println("JSON Format: " + json);
                     }
 
+                    else if (op == 2) {
 
-                    else if (op == 2)
-                    {
                         System.out.println("Please Enter the Movie ID");
                         int movieIdJson = keyboard.nextInt();
                         Movie foundMovieJson = dao.findMovieById(movieIdJson);
-                        if(foundMovieJson != null)
-                        {
+
+                        if(foundMovieJson != null) {
 
                             String movieJson = JsonConverter.gsonParser.toJson(foundMovieJson);
 
@@ -140,7 +148,6 @@ public class MainApp {
                             System.out.println("JSON representation of the found movie:");
                             System.out.println(json);
                         }
-
                         else {
                             System.out.println("No Movie found with this ID!");
                         }
