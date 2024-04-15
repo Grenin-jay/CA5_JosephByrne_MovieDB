@@ -3,8 +3,10 @@ package org.example.MultiThreaded;
 import org.example.DTOs.Movie;
 import org.example.JsonConverter;
 
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -51,8 +53,14 @@ public class Client {
                 }
 
                 else if(userCommand.startsWith("DisplayAll")) {
-                    //Command2 code goes here, fill out after discussing with group what we want
+                    String jsonMovies = in.readLine();
+                    List<Movie> movies = JsonConverter.jsonToMovies(jsonMovies);
+
+                    for (Movie movie : movies) {
+                        System.out.println(movie.toString());
+                    }
                 }
+
                 else if(userCommand.startsWith("AddEntity")) {
                     //Command3 code goes here, fill out after discussing with group what we want
                 }

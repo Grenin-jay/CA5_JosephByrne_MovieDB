@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Main author: Joseph Byrne
@@ -124,8 +125,25 @@ class ClientHandler implements Runnable{
 
                 }
                 else if (request.startsWith("DisplayAll")) {
+                    try {
+                        List<Movie> movies = DAO.getInstance().getAllMovies(); // Retrieve all movies from the DAO
 
+                        // Check if any movies were found
+                        if (!movies.isEmpty()) {
+                            // Convert the list of movies to JSON
+                            String jsonMovies = JsonConverter.moviesListToJson(movies);
+                            socketWriter.println(jsonMovies); // Send the JSON to the client
+                            System.out.println("Server Message: JSON movies were sent to the client");
+                        } else {
+                            socketWriter.println("Error: No movies found"); // Send error to client
+                            System.out.println("Server Message: No movies found");
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
+
                 else if (request.startsWith("AddEntity")) {
 
                 }

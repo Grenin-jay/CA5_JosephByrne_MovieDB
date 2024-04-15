@@ -4,9 +4,11 @@ package org.example;
  *
  */
 
+import com.google.gson.reflect.TypeToken;
 import org.example.DTOs.Movie;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class JsonConverter
@@ -32,5 +34,11 @@ public class JsonConverter
     public static Movie jsonToMovie(String json, Class<Movie> movieClass) {
         return gsonParser.fromJson(json, Movie.class);
     }
+
+    public static List<Movie> jsonToMovies(String json) {
+        Type listType = new TypeToken<List<Movie>>(){}.getType();
+        return gsonParser.fromJson(json, listType);
+    }
+
 
 }
