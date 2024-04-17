@@ -93,7 +93,7 @@ class ClientHandler implements Runnable{
 
                 System.out.println("Server: (ClientHandler): Read command from client " + clientNum + ": " + request);
 
-                if (request.startsWith("DisplayId")) {
+                if (request.startsWith("displayid")) {
 
                     //array splits the command in half (DisplayId, <ID>) using the delimiter " "
                     String[] splitCommand = request.split(" ");
@@ -124,7 +124,7 @@ class ClientHandler implements Runnable{
                     }
 
                 }
-                else if (request.startsWith("DisplayAll")) {
+                else if (request.startsWith("displayall")) {
                     try {
                         List<Movie> movies = DAO.getInstance().getAllMovies(); // Retrieve all movies from the DAO
 
@@ -144,31 +144,31 @@ class ClientHandler implements Runnable{
                 }
 
 
-                else if (request.startsWith("AddEntity")) {
+                else if (request.toLowerCase().startsWith("AddEntity")) {
 
-                    // Get the JSON data from the client side
-                    String jsonData = socketReader.readLine();
-
-                    // Convert the data to a Movie object using the new jsonToMovie method added by Emma to the JsonConverter
-                    Movie movie = JsonConverter.jsonToMovie(jsonData, Movie.class);
-
-                    // Add the movie to the database
-                    try {
-                        DAO.getInstance().insertMovie(movie);
-
-                        // Send success confirmation back to the client if everything worked out fine
-                        String successConfirmed = JsonConverter.movietoJson(movie);
-                        socketWriter.println(successConfirmed);
-                        socketWriter.println("Movie added to database.");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-
-                        // Send error response to the client
-                        socketWriter.println("Error: Couldn't add your movie 😦 ");
-                    }
-
-                    // Flush the output stream
-                    socketWriter.flush();
+//                    // Get the JSON data from the client side
+//                    String jsonData = socketReader.readLine();
+//
+//                    // Convert the data to a Movie object using the new jsonToMovie method added by Emma to the JsonConverter
+//                    Movie movie = JsonConverter.jsonToMovie(jsonData, Movie.class);
+//
+//                    // Add the movie to the database
+//                    try {
+//                        DAO.getInstance().insertMovie(movie);
+//
+//                        // Send success confirmation back to the client if everything worked out fine
+//                        String successConfirmed = JsonConverter.movietoJson(movie);
+//                        socketWriter.println(successConfirmed);
+//                        socketWriter.println("Movie added to database.");
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//
+//                        // Send error response to the client
+//                        socketWriter.println("Error: Couldn't add your movie 😦 ");
+//                    }
+//
+//                    // Flush the output stream
+//                    socketWriter.flush();
 
                 }
                 else if (request.startsWith("Quit")) {
