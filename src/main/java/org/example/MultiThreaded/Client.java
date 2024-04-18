@@ -115,14 +115,14 @@ public class Client {
 //
 
                 }
-                else if(userCommand.startsWith("Quit")){
+                else if(userCommand.startsWith("quit")){
                     String response = in.readLine(); //Waits for response
                     System.out.println("Client Message: Response from server: " + response);
 
                     break;
                 }
                 else{
-                    System.out.println("Command not known, please try again");
+                    System.out.println("Command not known, please try again\n");
                 }
 
                 //end of while statement clears and prompts the user for a new command

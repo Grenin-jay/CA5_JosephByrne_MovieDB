@@ -29,15 +29,19 @@ public class Server {
 
     public void start(){
 
+        //initialize server
         ServerSocket serverSocket =null;
+        //initialize client socket
         Socket clientSocket =null;
 
         try{
 
+            //creating a new server socket
             serverSocket = new ServerSocket(SERVER_PORT_NUMBER);
             System.out.println("Server has now started");
             int clientNum = 0;
 
+            //checking for incoming connections from the client
             while(true){
 
                 System.out.println("Server: Listening/waiting for connections on port:" + SERVER_PORT_NUMBER);
@@ -49,14 +53,14 @@ public class Server {
                 System.out.println("Server: Port number of remote client: " + clientSocket.getPort());
                 System.out.println("Server: Port number of the socket used to talk with client " + clientSocket.getLocalPort());
 
+                //starting a thread for each client connection
+                //allows multiple clients to connect at once without interfering with each other
                 Thread t = new Thread((Runnable) new ClientHandler(clientSocket, clientNum));
                 t.start();
 
                 System.out.println("Server: ClientHandler started in thread " + t.getName() + " for client " + clientNum + ". ");
             }
-
         }
-
         catch (IOException ex) {
             System.out.println(ex);
         }
@@ -71,11 +75,12 @@ class ClientHandler implements Runnable{
     final int clientNum;
 
     public ClientHandler(Socket clientSocket, int clientNum){
+        //initialise client number and socket
         this.clientNum = clientNum;
         this.clientSocket = clientSocket;
 
         try{
-
+            //initialise socket writer and reader
             this.socketWriter = new PrintWriter(clientSocket.getOutputStream(), true);
             this.socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         }

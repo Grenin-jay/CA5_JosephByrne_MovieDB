@@ -1,0 +1,46 @@
+DROP TABLE IF EXISTS Movies;
+
+CREATE TABLE Movies (
+    movie_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    release_year INT,
+    genre VARCHAR(100),
+    director VARCHAR(255),
+    runtime_minutes INT,
+    rating DECIMAL(3,1)
+);
+
+INSERT INTO Movies (movie_id, title, release_year, genre, director, runtime_minutes, rating) 
+VALUES 
+(1, 'The Godfather', 1972, 'Crime, Drama', 'Francis Ford Coppola', 175, 9.2),
+(2, 'The Dark Knight', 2008, 'Action, Crime, Drama', 'Christopher Nolan', 152, 8.0),
+(3, 'Pulp Fiction', 1994, 'Crime, Drama', 'Quentin Tarantino', 154, 8.9),
+(4, 'Star Wars II', 2002, 'Sci-Fi', 'George Lucas', 142, 9.8),
+(5, 'The Silent Hill', 2023, 'Horror', 'James Wan', 120, 8.0),
+(6, 'Quantum Chronicles', 2022, 'Sci-Fi', 'Denis Villeneuve', 150, 4.7),
+(7, 'The Last Stand', 2024, 'Action', 'Kathryn Bigelow', 135, 7.9),
+(8, 'Forbidden Love', 2021, 'Romance', 'Wong Kar-wai', 110, 8.4),
+(9, 'The Lost City', 2023, 'Adventure', 'Steven Spielberg', 140, 9.3),
+(10, 'Dark Redemption', 2020, 'Thriller', 'Christopher Nolan', 160, 2.4),
+(11, 'Beyond the Horizon', 2022, 'Drama', 'Ava DuVernay', 125, 5.3),
+(12, 'The Guardian Angel', 2024, 'Mystery', 'David Fincher', 130, 5.8),
+(13, 'Echoes of War', 2023, 'Historical', 'Quentin Tarantino', 155, 4.7),
+(14, 'Rise of the Machines', 2024, 'Action, Sci-Fi', 'Lana Wachowski', 145, 7.2);
+
+
+drop table if exists Users;
+    CREATE TABLE Users (
+    ID int not null auto_increment primary key,
+    username char(40),
+    password char(40),
+    displayName char(40),
+    isAdmin int);
+
+INSERT INTO users (ID, username, password, displayName, isAdmin)
+VALUES (1, 'Ema', 'Ema123', 'Ema', 1);
+
+INSERT INTO users (ID, username, password, displayName, isAdmin)
+VALUES (2, 'Joeseph', 'Joeseph123', 'Joeseph', 1);
+
+INSERT INTO users (ID, username, password, displayName, isAdmin)
+VALUES (3, 'TestUser', 'TestUser123', 'TestUser', 0);
