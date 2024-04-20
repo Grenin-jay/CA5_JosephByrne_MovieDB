@@ -108,11 +108,18 @@ public class MainApp {
                         System.out.println("You are updating a movie rating");
                         System.out.println("Enter the movie ID to update its rating: ");
                         int movieUpdating = keyboard.nextInt();
-                        System.out.println("Enter the new rating for this movie: ");
-                        double newRating = keyboard.nextDouble();
+
+                        double newRating;
+                        do {
+                            System.out.println("Enter the new rating for this movie (0-10): ");
+                            newRating = keyboard.nextDouble();
+                            if(newRating < 0 || newRating > 10){
+                                System.out.println("Error, Enter a valid number");
+                            }
+                        } while (newRating < 0 || newRating > 10);
+
                         dao.updateRating(movieUpdating, newRating);
                         System.out.println("Movie rating updated successfully");
-
                         break;
 
                     case 6:
@@ -137,45 +144,34 @@ public class MainApp {
                         break;
 
                     case 7:
-                        System.out.println("Which movies would you like to convert to Json format?");
-                        System.out.println("1.All Movies");
-                        System.out.println("2.By ID");
+                        System.out.println("Convert Movies to Json Format");
+                        System.out.println("Converting All Available Movies to JSON Format");
 
                         String json;
-                        int op = keyboard.nextInt();
-
-                        if (op == 1) {
-
-                            List<Movie> allMovies = dao.getAllMovies();
-                            json = JsonConverter.moviesListToJson(allMovies);
-                            System.out.println("JSON Format: " + json);
-                        }
-
-                        else if (op == 2) {
-
-                            System.out.println("Please Enter the Movie ID");
-                            int movieIdJson = keyboard.nextInt();
-                            Movie foundMovieJson = dao.findMovieById(movieIdJson);
-
-                            if(foundMovieJson != null) {
-
-                                String movieJson = JsonConverter.gsonParser.toJson(foundMovieJson);
-
-                                json = JsonConverter.singleMovieToJson(movieJson);
-                                System.out.println("JSON representation of the found movie:");
-                                System.out.println(json);
-                            }
-                            else {
-                                System.out.println("No Movie found with this ID!");
-                            }
-                        }
-
+                        List<Movie> allMovies = dao.getAllMovies();
+                        json = JsonConverter.moviesListToJson(allMovies);
+                        System.out.println("JSON Format: " + json);
                         break;
 
                     case 8:
+                        System.out.println("Convert Movie to Json by ID");
+                        System.out.println("Please Enter the Movie ID");
+                        int movieIdJson = keyboard.nextInt();
+                        Movie foundMovieJson = dao.findMovieById(movieIdJson);
+
+                        if(foundMovieJson != null) {
+
+                            String movieJson = JsonConverter.singleMovieToJson(foundMovieJson);
 
 
+                            System.out.println("JSON representation of the found movie:");
+                            System.out.println(movieJson);
+                        }
+                        else {
+                            System.out.println("No Movie found with this ID!");
+                        }
                         break;
+
                     case 9:
                         System.out.println("Exiting Code Now.");
                         break;

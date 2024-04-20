@@ -4,10 +4,7 @@ import org.example.DAOs.DAO;
 import org.example.DTOs.Movie;
 import org.example.JsonConverter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -152,13 +149,17 @@ class ClientHandler implements Runnable{
                 else if (request.toLowerCase().startsWith("AddEntity")) {
 
                 }
-                else if (request.startsWith("Image")){
-
+                else if (request.toLowerCase().startsWith("image")) {
+                    receiveFile("CA5_JosephByrne_MovieDB/images/TheGodFather_Image.jpeg");
                 }
-                else if (request.startsWith("Quit")) {
+
+                else if (request.toLowerCase().startsWith("quit")) {
                     socketWriter.println("Sorry to see you leaving. Goodbye.");
                     System.out.println("Server message: Client has notified us that it is quitting.");
+                    return;
                 }
+
+
                 else {
                     socketWriter.println("error I'm sorry I don't understand your request");
                     System.out.println("Server message: Invalid request from client.");
@@ -186,5 +187,39 @@ class ClientHandler implements Runnable{
         System.out.println("Server: (ClientHandler): Handler for Client " + clientNum + " is terminating .....");
     }
 
+    private void receiveFile(String fileName) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+        DataInputStream dataInputStream = new DataInputStream(clientSocket.getInputStream());
+
+        try {
+            // DataInputStream allows us to read Java types from stream e.g. readLong()
+            // read the size of the file
+            long bytes_remaining = dataInputStream.readLong(); // bytes remaining to be read
+
+            // create a buffer to receive the incoming bytes from the socket
+            byte[] buffer = new byte[4 * 1024]; // 4 kilobyte buffer
+
+            System.out.println("Server: Bytes remaining to be read from socket: " + bytes_remaining);
+            int bytes_read; // number of bytes read from the socket
+
+            // next, read the raw bytes in chunks (buffer size) that make up the image file
+            while (bytes_remaining > 0 && (bytes_read = dataInputStream.read(buffer, 0, (int) Math.min(buffer.length, bytes_remaining))) != -1) {                // write the buffer data into the local file
+                fileOutputStream.write(buffer, 0, bytes_read);
+
+                // reduce the 'bytes_remaining' to be read by the number of bytes read
+                bytes_remaining -= bytes_read;
+
+                System.out.println("Server: Bytes remaining to be read from socket: " + bytes_remaining);
+            }
+
+            System.out.println("File is Received");
+            socketWriter.println("File received successfully");
+        } catch (IOException e) {
+            e.printStackTrace();
+            socketWriter.println("Error receiving file");
+        } finally {
+            fileOutputStream.close();
+        }
+    }
 
 }
