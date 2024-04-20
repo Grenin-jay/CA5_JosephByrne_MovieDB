@@ -182,7 +182,7 @@ public class MainApp {
                     default:
                         System.out.println("Invalid Choice.");
                 }
-            } while (choice != 9); // Exits Loop
+            } while (choice != 8); // Exits Loop
         }
     }
 

@@ -229,7 +229,7 @@ public class DAO extends MySQLDAO implements MoviesDAOInterface {
      * filters movies by rating
      */
     @Override
-    public List<Movie> filterMoviesByRating(double minRating) {
+    public List<Movie> filterMoviesByRating(double filter) {
 
         List<Movie> filteredMovies = new ArrayList<>(); //list to store filtered movies
         Movie movie = null; //initialize movie obj
@@ -241,8 +241,8 @@ public class DAO extends MySQLDAO implements MoviesDAOInterface {
             try {
 
                 //Using a prepared statement to execute the query wih a parameter
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Movies WHERE rating >= ?");
-                stmt.setDouble(1, minRating); //setting parameter as minRating
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Movies WHERE rating = ?");
+                stmt.setDouble(1, filter); //setting parameter as filter
                 ResultSet results = stmt.executeQuery(); //execute query
 
                 //goes through all results

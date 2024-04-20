@@ -1,14 +1,5 @@
 package org.example.DAOs;
 
-/*
-    drop table if exists Users;
-    create table Users
-    (ID int not null auto_increment primary key,
-    username char(40),
-    password char(40),
-    displayName char(40),
-    isAdmin int);
- */
 public class User
 {
     private int id;
