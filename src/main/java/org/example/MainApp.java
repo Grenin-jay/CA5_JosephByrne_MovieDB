@@ -48,8 +48,9 @@ public class MainApp {
                     System.out.println("5. Update a movies rating.");
                 }
                 System.out.println("6. Filter by rating.");
-                System.out.println("7. Json Convert");
-                System.out.println("8. Exit Code.");
+                System.out.println("7. Json Convert Movies");
+                System.out.println("8. Json Convert Movie by ID");
+                System.out.println("9. Exit Code.");
                 System.out.println("------------------------");
 
                 choice = keyboard.nextInt();

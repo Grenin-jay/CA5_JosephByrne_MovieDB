@@ -150,6 +150,7 @@ class ClientHandler implements Runnable{
 
                 }
                 else if (request.toLowerCase().startsWith("image")) {
+                    System.out.println("File Received");
                     receiveFile("CA5_JosephByrne_MovieDB/images/TheGodFather_Image.jpeg");
                 }
 
@@ -219,6 +220,4 @@ class ClientHandler implements Runnable{
             fileOutputStream.close();
         }
     }
-
-
 }
