@@ -241,7 +241,7 @@ public class DAO extends MySQLDAO implements MoviesDAOInterface {
             try {
 
                 //Using a prepared statement to execute the query wih a parameter
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Movies WHERE rating = ?");
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Movies WHERE rating = ?"); //only movies where rating is == to ?
                 stmt.setDouble(1, filter); //setting parameter as filter
                 ResultSet results = stmt.executeQuery(); //execute query
 

@@ -188,31 +188,29 @@ class ClientHandler implements Runnable{
     }
 
     private void receiveFile(String fileName) throws IOException {
+        //create a FileOutputSteam to write the recived file
         FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+        //create a DataInputStream to read data from client socket
         DataInputStream dataInputStream = new DataInputStream(clientSocket.getInputStream());
 
         try {
-            // DataInputStream allows us to read Java types from stream e.g. readLong()
-            // read the size of the file
-            long bytes_remaining = dataInputStream.readLong(); // bytes remaining to be read
+            //read the size of the file
+            long bytes_remaining = dataInputStream.readLong();
 
-            // create a buffer to receive the incoming bytes from the socket
-            byte[] buffer = new byte[4 * 1024]; // 4 kilobyte buffer
+            //create a buffer to read the file data in parts
+            byte[] buffer = new byte[4 * 1024];//4KB buffer
+            //number of bytes read
+            int bytes_read;
 
-            System.out.println("Server: Bytes remaining to be read from socket: " + bytes_remaining);
-            int bytes_read; // number of bytes read from the socket
-
-            // next, read the raw bytes in chunks (buffer size) that make up the image file
-            while (bytes_remaining > 0 && (bytes_read = dataInputStream.read(buffer, 0, (int) Math.min(buffer.length, bytes_remaining))) != -1) {                // write the buffer data into the local file
+            //read the file in chucks until all are recieved
+            while (bytes_remaining > 0 && (bytes_read = dataInputStream.read(buffer, 0, (int) Math.min(buffer.length, bytes_remaining))) != -1) {
+                //write the buffer data to FileOutputSteam
                 fileOutputStream.write(buffer, 0, bytes_read);
-
-                // reduce the 'bytes_remaining' to be read by the number of bytes read
+                //Update the remaining bytes to be read
                 bytes_remaining -= bytes_read;
-
-                System.out.println("Server: Bytes remaining to be read from socket: " + bytes_remaining);
             }
 
-            System.out.println("File is Received");
+            //send confirmation message
             socketWriter.println("File received successfully");
         } catch (IOException e) {
             e.printStackTrace();
@@ -221,5 +219,6 @@ class ClientHandler implements Runnable{
             fileOutputStream.close();
         }
     }
+
 
 }

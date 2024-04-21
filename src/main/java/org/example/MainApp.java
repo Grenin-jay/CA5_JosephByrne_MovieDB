@@ -57,12 +57,13 @@ public class MainApp {
 
                 switch (choice) {
 
+                    //Case 1: show all movies
                     case 1:
                         System.out.println("Showing all movies.");
                         ShowMovies(dao);
 
                         break;
-
+                    //Case 2: insert a new movie
                     case 2:
                         System.out.println("You are inserting a new movie.");
                         Movie newMovie = insertNewMovie(keyboard);
@@ -71,6 +72,7 @@ public class MainApp {
 
                         break;
 
+                    //Case 3: Find a movie by ID
                     case 3:
                         System.out.println("Finding a movie by ID");
                         System.out.println("Please Enter the Movie ID");
@@ -78,7 +80,7 @@ public class MainApp {
                         Movie foundMovie = dao.findMovieById(movieId);
 
                         if(foundMovie != null){
-
+                            //if the movie is found, display its details
                             System.out.println("Movie Found!");
 
                             System.out.printf("%-5s %-20s %-12s %-22s %-24s %-12s %-10s\n",
@@ -95,6 +97,7 @@ public class MainApp {
 
                         break;
 
+                    //Case 4: Delete movie by ID
                     case 4:
                         System.out.println("Enter the movie ID to delete it: ");
                         int movieIdToDelete = keyboard.nextInt();
@@ -104,32 +107,39 @@ public class MainApp {
 
                         break;
 
+                    //Case 5: Update a movies rating
                     case 5:
                         System.out.println("You are updating a movie rating");
                         System.out.println("Enter the movie ID to update its rating: ");
                         int movieUpdating = keyboard.nextInt();
 
+                        //declaring variable
                         double newRating;
+                        //prompt the user to enter a new rating until a valid one is entered
                         do {
                             System.out.println("Enter the new rating for this movie (0-10): ");
                             newRating = keyboard.nextDouble();
+                            //check if the entered rating is valid
                             if(newRating < 0 || newRating > 10){
                                 System.out.println("Error, Enter a valid number");
                             }
                         } while (newRating < 0 || newRating > 10);
 
+                        //update the rating of the movie in the DAO
                         dao.updateRating(movieUpdating, newRating);
                         System.out.println("Movie rating updated successfully");
                         break;
 
+                    //Case 6: Filter movies by a specific rating
                     case 6:
                         System.out.println("Filtering Movies By Rating");
-                        System.out.println("Enter the minumum rating you want");
+                        System.out.println("Enter the rating you want to see");
 
-                        double minRating = keyboard.nextDouble();
+                        double rating = keyboard.nextDouble();
                         keyboard.nextLine();
 
-                        List<Movie> filteredMoviesbyRating = dao.filterMoviesByRating(minRating);
+                        //filter the list of movies in the DAO by getting only movies with exact rating requested
+                        List<Movie> filteredMoviesbyRating = dao.filterMoviesByRating(rating);
 
                         if (!filteredMoviesbyRating.isEmpty()){
                             System.out.println("Filtered Movies");
@@ -143,6 +153,7 @@ public class MainApp {
                         }
                         break;
 
+                    //Case 7: Convert movies to a json format
                     case 7:
                         System.out.println("Convert Movies to Json Format");
                         System.out.println("Converting All Available Movies to JSON Format");
@@ -153,6 +164,7 @@ public class MainApp {
                         System.out.println("JSON Format: " + json);
                         break;
 
+                    //Case 8: Convert a specific movie to Json format
                     case 8:
                         System.out.println("Convert Movie to Json by ID");
                         System.out.println("Please Enter the Movie ID");
@@ -172,13 +184,14 @@ public class MainApp {
                         }
                         break;
 
+                    //Case 9: Exit the MainApp code
                     case 9:
                         System.out.println("Exiting Code Now.");
                         break;
                     default:
                         System.out.println("Invalid Choice.");
                 }
-            } while (choice != 8); // Exits Loop
+            } while (choice != 9); // Exits Loop
         }
     }
 

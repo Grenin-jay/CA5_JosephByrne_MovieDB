@@ -26,8 +26,11 @@ public class Client {
 
     public void start() {
         try (
+                //create a socket and connect ot the server
                 Socket socket = new Socket("Localhost", 8888);
+                //create a PrintWriter for sending data to server
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                //create a buffered reader for recieveing data from server
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
         ) {
             // Initialize DataOutputStream here (remove the local variable declaration)
@@ -65,6 +68,7 @@ public class Client {
                 else if(userCommand.startsWith("displayall")) {
                     String jsonMovies = in.readLine();
 
+                    //convert the JSON string to of movies to a list<Movies> object
                     List<Movie> movies = JsonConverter.jsonToMovies(jsonMovies);
 
                     System.out.printf("%-5s %-20s %-12s %-22s %-24s %-12s %-10s\n",
