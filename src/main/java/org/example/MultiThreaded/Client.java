@@ -82,6 +82,11 @@ public class Client {
                 }
                 else if(userCommand.startsWith("AddEntity")) {
 
+                    //Code need to be done by Julius
+                }
+                else if(userCommand.startsWith("DeleteEntity")){
+
+                    //Code needed to be done by Julius
                 }
                 else if(userCommand.startsWith("image")){
                     System.out.println("Sending the File to the Server");
